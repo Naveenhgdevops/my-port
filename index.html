@@ -3,250 +3,242 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Naveen | Middleware Solutions & Data Apps</title>
-    <!-- Modern Fonts -->
+    <title>Naveengowda HG | Digital Garden</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <!-- Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
+
     <style>
         :root {
-            --bg-color: #0a0a0c;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --accent-blue: #00d2ff;
-            --accent-green: #00ffaa;
-            --text-main: #e0e0e0;
-            --text-dim: #a0a0a0;
-            --glass-border: rgba(255, 255, 255, 0.1);
-        }
-
-        * {
-            box-sizing: border-box;
-            transition: all 0.3s ease;
+            --bg-color: #fdfdfd;
+            --text-main: #1a1a1a;
+            --accent: #3b82f6;
         }
 
         body {
+            font-family: 'Inter', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
-            font-family: 'Urbanist', sans-serif;
-            margin: 0;
-            padding: 0;
+            scroll-behavior: smooth;
             overflow-x: hidden;
-            /* Subtle grid background */
-            background-image: 
-                radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
-            background-size: 40px 40px;
         }
 
-        /* --- STICKY TASKBAR (Top Navigation) --- */
-        nav.taskbar {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 800px;
-            height: 65px;
-            background: rgba(20, 20, 25, 0.7);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 30px;
-            z-index: 1000;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        h1, h2, h3, .serif {
+            font-family: 'Playfair Display', serif;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 20px;
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
-        .nav-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-dim);
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            padding: 8px 15px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-family: 'JetBrains Mono', monospace;
+        .page-content {
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
         }
 
-        .nav-btn i { font-size: 16px; }
-
-        .nav-btn:hover {
-            color: var(--accent-blue);
-            background: rgba(0, 210, 255, 0.1);
+        .hidden-page {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
         }
 
-        .nav-btn.active {
-            color: white;
-            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
-            box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+        .active-page {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        /* --- HERO SECTION --- */
-        header.hero {
-            height: 60vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding-top: 100px;
+        .blog-card {
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .hero h1 {
-            font-size: 4rem;
-            margin: 0;
-            background: linear-gradient(to right, #fff, #888);
+        .blog-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #1a1a1a 0%, #4b5563 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: -2px;
         }
 
-        .hero p {
-            color: var(--accent-green);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.2rem;
-            margin-top: 10px;
-        }
-
-        .middleware-tags {
-            margin-top: 20px;
-            display: flex;
-            gap: 10px;
-        }
-
-        .tag {
-            font-size: 0.8rem;
-            padding: 5px 12px;
-            border: 1px solid var(--glass-border);
-            border-radius: 4px;
-            color: var(--text-dim);
-        }
-
-        /* --- APP VIEWPORT AREA --- */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto 100px;
-            padding: 0 20px;
-        }
-
-        .app-display {
-            background: var(--card-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            overflow: hidden;
-            height: 800px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-            position: relative;
-        }
-
-        .app-display iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Status Bar for Iframe */
-        .display-header {
-            background: rgba(255,255,255,0.03);
-            padding: 15px 25px;
-            border-bottom: 1px solid var(--glass-border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .window-dots {
-            display: flex;
-            gap: 8px;
-        }
-
-        .dot { width: 12px; height: 12px; border-radius: 50%; }
-        .red { background: #ff5f56; }
-        .yellow { background: #ffbd2e; }
-        .green { background: #27c93f; }
-
-        .app-title {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            color: var(--accent-blue);
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            text-align: center;
-            padding: 50px 0;
-            color: var(--text-dim);
-            font-size: 0.9rem;
-            border-top: 1px solid var(--glass-border);
-        }
-
-        /* Mobile Adjustments */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            nav.taskbar { width: 95%; padding: 0 15px; }
-            .nav-btn span { display: none; }
-            .app-display { height: 600px; }
-        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
     </style>
 </head>
-<body>
+<body class="antialiased">
 
-    <!-- Taskbar -->
-    <nav class="taskbar">
-        <div style="font-weight: 700; color: white;">NAVEENGOWDA HG<span style="color:var(--accent-green)">.</span></div>
-        <div class="nav-links">
-            <a href="https://your-app-1.streamlit.app" target="_blank" class="nav-btn">
-                <i class="fa-solid fa-chart-line"></i> <span>Financial Dashboard</span>
-            </a>
-            <a href="https://your-app-2.streamlit.app" target="_blank" class="nav-btn">
-                <i class="fa-solid fa-server"></i> <span>Middleware Monitor</span>
-            </a>
-        </div>
-        <a href="mailto:your-email@example.com" style="color: var(--text-main); text-decoration: none;"><i class="fa-solid fa-envelope"></i></a>
-    </nav>
-
-    <!-- Hero -->
-    <header class="hero">
-        <h1>Building Better Tomorrow</h1>
-    </header>
-
-    <!-- Interactive App Area -->
-    <main class="container">
-        <div class="app-display" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: radial-gradient(circle at center, rgba(0, 210, 255, 0.05) 0%, transparent 70%);">
-            <div style="padding: 40px;">
-                <i class="fa-solid fa-rocket" style="font-size: 50px; color: var(--accent-blue); margin-bottom: 20px;"></i>
-                <h2 style="font-size: 2rem; margin-bottom: 10px;">Project Showcases</h2>
-                <p style="color: var(--text-dim); max-width: 500px; margin-bottom: 30px;">Explore my live data applications hosted on Streamlit Cloud. These tools leverage Supabase for real-time data persistence and automation.</p>
-                
-                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                    <a href="https://your-app-1.streamlit.app" target="_blank" style="text-decoration: none; background: white; color: black; padding: 12px 25px; border-radius: 12px; font-weight: 700; display: flex; align-items: center; gap: 10px;">
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Financial Dashboard
-                    </a>
-                    <a href="https://your-app-2.streamlit.app" target="_blank" style="text-decoration: none; border: 1px solid var(--accent-green); color: var(--accent-green); padding: 12px 25px; border-radius: 12px; font-weight: 700; display: flex; align-items: center; gap: 10px;">
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Middleware Monitor
-                    </a>
-                </div>
+    <nav class="glass-nav sticky top-0 z-50 px-6 py-4">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <a href="javascript:void(0)" onclick="showPage('home')" class="text-2xl font-bold tracking-tighter serif">Naveengowda<span class="text-blue-600">.</span></a>
+            <div class="hidden md:flex space-x-8 font-medium text-xs uppercase tracking-widest text-gray-600">
+                <a href="#" class="hover:text-black transition-colors">My Resumes</a>
+                <a href="https://linkedin.com" target="_blank" class="hover:text-black transition-colors">LinkedIn</a>
+                <a href="javascript:void(0)" onclick="showPage('home'); document.getElementById('latest-entries').scrollIntoView();" class="hover:text-black transition-colors">Projects</a>
+                <a href="javascript:void(0)" onclick="showPage('about')" class="hover:text-black transition-colors">About</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="#contact" onclick="showPage('home')" class="bg-black text-white px-5 py-2 rounded-full text-xs font-bold uppercase tracking-tighter hover:bg-gray-800 transition-all">Contact Me</a>
             </div>
         </div>
-    </main>
+    </nav>
 
-    <footer>
-        <p>&copy; 2026 Naveengowda HG</p>
+    <div id="home-page" class="page-content active-page">
+        <header class="max-w-6xl mx-auto px-6 pt-20 pb-16 text-center">
+            <span class="text-blue-600 font-semibold tracking-widest text-xs uppercase mb-4 block">Personal Thoughts & Insights</span>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 gradient-text leading-tight">Building Better Tomorrow.</h1>
+            <p class="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">
+                Exploring the intersection of technology, infrastructure, and digital growth. Welcome to my corner of the internet.
+            </p>
+        </header>
+
+        <main class="max-w-6xl mx-auto px-6 mb-24">
+            <section class="mb-20">
+                <div class="relative group cursor-pointer overflow-hidden rounded-3xl bg-gray-100 aspect-[21/9]">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=2072" alt="Featured Post" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-8 md:p-12">
+                        <span class="bg-blue-600 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full w-fit mb-4">Featured Insight</span>
+                        <h2 class="text-white text-3xl md:text-5xl font-bold mb-4 leading-tight">Scaling Architecture for the Next Decade</h2>
+                        <div class="flex items-center text-white text-sm font-medium">
+                            <img src="https://placehold.co/40x40/3b82f6/white?text=N" class="w-10 h-10 rounded-full mr-3 border-2 border-white/20">
+                            <span>Naveengowda HG</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="latest-entries">
+                <div class="flex justify-between items-end mb-10">
+                    <h3 class="text-3xl font-bold">Latest Entries</h3>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <!-- Project/Blog Card 1 -->
+                    <article class="blog-card flex flex-col">
+                        <div class="rounded-2xl overflow-hidden mb-6 aspect-video bg-gray-100">
+                            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover">
+                        </div>
+                        <span class="text-blue-600 font-bold text-[10px] uppercase tracking-widest mb-2">Technical</span>
+                        <h4 class="text-xl font-bold mb-3">Modernizing Distributed Systems</h4>
+                        <p class="text-gray-500 text-sm mb-4">A deep dive into building resilient backends that stand the test of time.</p>
+                    </article>
+
+                    <!-- Project/Blog Card 2 -->
+                    <article class="blog-card flex flex-col">
+                        <div class="rounded-2xl overflow-hidden mb-6 aspect-video bg-gray-100">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover">
+                        </div>
+                        <span class="text-green-600 font-bold text-[10px] uppercase tracking-widest mb-2">Growth</span>
+                        <h4 class="text-xl font-bold mb-3">The Art of Building Better</h4>
+                        <p class="text-gray-500 text-sm mb-4">Lessons learned from a decade in middleware and infrastructure engineering.</p>
+                    </article>
+
+                    <!-- Project/Blog Card 3 -->
+                    <article class="blog-card flex flex-col">
+                        <div class="rounded-2xl overflow-hidden mb-6 aspect-video bg-gray-100">
+                            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover">
+                        </div>
+                        <span class="text-purple-600 font-bold text-[10px] uppercase tracking-widest mb-2">Engineering</span>
+                        <h4 class="text-xl font-bold mb-3">Real-time Data Strategies</h4>
+                        <p class="text-gray-500 text-sm mb-4">Efficient ways to handle high-concurrency data flows in 2026.</p>
+                    </article>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="about-page" class="page-content hidden-page">
+        <main class="max-w-4xl mx-auto px-6 py-20">
+            <div class="flex flex-col md:flex-row gap-12 items-center mb-16">
+                <div class="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden flex-shrink-0 border-4 border-gray-100 shadow-xl">
+                    <img src="https://placehold.co/400x400/1a1a1a/white?text=NH" class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <h2 class="text-4xl md:text-6xl font-bold mb-4 serif">About Me</h2>
+                    <p class="text-xl text-gray-600 leading-relaxed italic">"Striving to build systems that shape a better tomorrow."</p>
+                </div>
+            </div>
+
+            <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed space-y-6">
+                <p>
+                    Hello, I'm <strong>Naveengowda HG</strong>. I am a passionate engineer dedicated to the craft of building scalable, efficient, and forward-thinking digital infrastructure. 
+                </p>
+                <p>
+                    With a deep focus on technical excellence and a philosophy centered around continuous improvement, I spend my time exploring how complex systems can be simplified and optimized to serve real-world needs.
+                </p>
+                <h3 class="text-2xl font-bold text-black pt-6">My Vision</h3>
+                <p>
+                    I believe that technology should be a silent enabler—robust enough to handle the heaviest loads, yet intuitive enough to feel seamless. My work is driven by the goal of "Building Better Tomorrow," ensuring that every line of code and every architectural decision contributes to a more reliable future.
+                </p>
+            </div>
+            
+            <div class="mt-12">
+                <button onclick="showPage('home')" class="text-blue-600 font-semibold flex items-center hover:translate-x-[-4px] transition-transform">
+                    <i class="fa-solid fa-arrow-left mr-2"></i> Back to Journal
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <section id="contact" class="bg-gray-100 py-24 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-6">Contact Me</h2>
+            <p class="text-gray-600 mb-10 text-lg">Have a project in mind or just want to say hi? I'd love to hear from you.</p>
+            <form id="contactForm" class="flex flex-col md:flex-row gap-4 justify-center">
+                <input type="email" placeholder="Your email address" required class="px-6 py-4 rounded-full w-full md:w-96 focus:outline-none focus:ring-2 focus:ring-blue-500 border-none shadow-sm">
+                <button type="submit" class="bg-black text-white px-8 py-4 rounded-full font-bold hover:bg-gray-800 transition-all shadow-lg whitespace-nowrap">Send Message</button>
+            </form>
+            <p id="successMsg" class="mt-4 text-green-600 font-medium hidden">Message sent! I'll get back to you soon.</p>
+        </div>
+    </section>
+
+    <footer class="max-w-6xl mx-auto px-6 py-12 border-t border-gray-100">
+        <div class="flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm">
+            <div class="mb-4 md:mb-0 font-medium tracking-tighter text-black serif text-xl">Naveengowda HG.</div>
+            <div class="flex space-x-6 mb-4 md:mb-0">
+                <a href="https://github.com" target="_blank" class="hover:text-black transition-colors"><i class="fa-brands fa-github text-lg"></i></a>
+                <a href="https://linkedin.com" target="_blank" class="hover:text-black transition-colors"><i class="fa-brands fa-linkedin text-lg"></i></a>
+            </div>
+            <p>&copy; 2026 Digital Garden. All rights reserved.</p>
+        </div>
     </footer>
 
-    <!-- Removed switchApp script as links are now external -->
+    <script>
+        function showPage(pageId) {
+            const home = document.getElementById('home-page');
+            const about = document.getElementById('about-page');
+            
+            if (pageId === 'about') {
+                home.classList.remove('active-page');
+                home.classList.add('hidden-page');
+                about.classList.remove('hidden-page');
+                about.classList.add('active-page');
+                window.scrollTo(0, 0);
+            } else {
+                about.classList.remove('active-page');
+                about.classList.add('hidden-page');
+                home.classList.remove('hidden-page');
+                home.classList.add('active-page');
+            }
+        }
+
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button');
+            const success = document.getElementById('successMsg');
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
+            btn.disabled = true;
+            setTimeout(() => {
+                btn.innerHTML = 'Sent!';
+                btn.classList.add('bg-green-600');
+                success.classList.remove('hidden');
+            }, 1200);
+        });
+    </script>
 </body>
 </html>
